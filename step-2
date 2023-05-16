@@ -1,0 +1,2 @@
+docker build -t moja-aplikacja .
+docker run -p 3000:3000 moja-aplikacja
