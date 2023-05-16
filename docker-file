@@ -1,0 +1,22 @@
+# Wybieramy obraz bazowy
+FROM node:18
+
+# Instalujemy zależności
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+# Klonujemy repozytorium Git i kopiujemy plik aplikacji
+RUN apt-get update && apt-get install -y git
+RUN git clone https://github.com/dziecinka/app.git
+WORKDIR /app/app
+COPY aplikacja.js .
+
+# Instalujemy zależności aplikacji
+RUN npm install
+
+# Otwieramy port, na którym działa aplikacja (jeśli jest znany)
+EXPOSE 3000
+
+# Uruchamiamy aplikację
+CMD [ "node", "aplikacja.js" ]
